@@ -6,21 +6,27 @@
 
 ## Project Description 📝
 
-This project, Link-Bio, provides a streamlined and efficient backend service for creating and managing personalized link-in-bio pages. In today's digital landscape, a concise and customizable "link in bio" is crucial for directing social media followers and target audiences to relevant content, products, or services. Link-Bio simplifies this process by offering a robust API for managing links, enabling users to easily create, update, and delete links associated with their profile.
+Link-Bio provides a streamlined and efficient backend service for creating and managing personalized link-in-bio pages. In today's digital landscape, a concise and customizable "link in bio" is crucial for directing social media followers and target audiences to relevant content, products, or services.
 
-This service is designed for individuals, influencers, businesses, and anyone seeking a centralized hub to share multiple links through a single, shareable URL. It addresses the limitation of most social media platforms that only allow one link in the profile description. By leveraging the power of Go, Link-Bio offers a performant and scalable solution, making it suitable for handling a large number of users and links. The use of Docker and docker-compose further simplifies deployment and ensures consistent behavior across different environments.
+This service is designed for individuals, influencers, businesses, and anyone seeking a centralized hub to share multiple links through a single, shareable URL. It overcomes the limitation of most social media platforms that only allow one link in the profile description.
 
-The architecture focuses on maintainability and extensibility, making it easy to integrate new features and adapt to evolving requirements. By providing a clean API and well-defined data models, Link-Bio aims to empower users with a flexible and reliable tool for managing their online presence and driving traffic to their desired destinations. The project uses a standard Go project structure for easy navigation and understanding.
+Built with Go, Link-Bio offers a performant and scalable solution, suitable for handling a large number of users and links. The use of Docker and Docker Compose simplifies deployment and ensures consistent behavior across environments.
+
+The architecture focuses on maintainability and extensibility, making it easy to add new features and adapt to evolving requirements. By providing a clean API and well-defined data models, Link-Bio empowers users to manage their online presence effectively.
+
+---
 
 ## Key Features ✨
 
-*   **Link Creation:** Allows users to easily create new links with custom titles and URLs. Benefit: Enables users to consolidate all important links into a single, manageable resource.
-*   **Link Retrieval:** Provides an API to retrieve all links associated with a specific user. Benefit: Enables dynamic display of links on the user's bio page.
-*   **Link Update:** Enables users to modify existing links, including their titles and URLs. Benefit: Keeps the link-in-bio page up-to-date with the latest content.
-*   **Link Deletion:** Allows users to remove outdated or irrelevant links. Benefit: Ensures the link-in-bio page remains clean and focused.
-*   **Database Persistence:** Persists link data in a database for reliable storage and retrieval. Benefit: Guarantees data integrity and availability.
-*   **Dockerized Deployment:** Simplifies deployment and ensures consistent behavior across different environments. Benefit: Makes it easy to deploy and run the application in various environments, from local development to production.
-*   **.env Configuration:** Enables easy configuration of the application environment through environment variables. Benefit: Allows for easy customization of database connections and other settings without modifying the code.
+- **Link Creation:** Create new links with custom titles and URLs.
+- **Link Retrieval:** Retrieve all links associated with a user.
+- **Link Update:** Modify existing links.
+- **Link Deletion:** Remove outdated or irrelevant links.
+- **Database Persistence:** Reliable storage using PostgreSQL.
+- **Dockerized Deployment:** Easy deployment across environments.
+- **.env Configuration:** Manage environment variables without changing code.
+
+---
 
 ## Tech Stack & Tools 🛠️
 
@@ -31,6 +37,8 @@ The architecture focuses on maintainability and extensibility, making it easy to
 | Docker Compose | Tool for defining and running multi-container Docker applications.   |
 | .env         | Used for managing environment variables.                   |
 | Git          | Version control system used for tracking code changes.         |
+
+---
 
 ## Installation & Running Locally 🚀
 
@@ -75,10 +83,16 @@ The architecture focuses on maintainability and extensibility, making it easy to
 
 5.  **Access the API:**
 
+    ```bash
+    http://localhost:8080
+    ```
+    
     The API should now be accessible at `http://localhost`.  You'll need to consult any relevant API documentation to determine the specific endpoints.
 
 6.  **Run the Application Directly (Without Docker):**
+
     Alternatively, you can run the application directly using Go:
+    
     ```bash
     go mod download
     go run main.go
