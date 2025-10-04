@@ -1,0 +1,10 @@
+# Dependencies
+vendor/
+
+# Environment file
+.env
+
+# Go build outputs
+*.exe
+*.out
+main

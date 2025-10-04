@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  # Service for the Go API application
+  api:
+    build: .
+    ports:
+      - "8080:8080" # Go app port
+    env_file:
+      - .env
+    depends_on:
+      - db
+    environment:
+      # Override database host to point to the 'db' service
+      POSTGRES_HOST: db
+
+  # Service for the PostgreSQL database
+  db:
+    image: postgres:14-alpine
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432" # Use 5433 on host to avoid conflict with local PostgreSQL
+
+volumes:
+  postgres_data:
