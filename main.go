@@ -36,6 +36,9 @@ func main() {
 	api := r.PathPrefix("/api").Subrouter()
 	api.HandleFunc("/links", linkHandler.GetAllLinks).Methods("GET")
 	api.HandleFunc("/links", linkHandler.CreateLink).Methods("POST")
+	api.HandleFunc("/links/{id:[0-9]+}", linkHandler.GetLinkByID).Methods("GET")
+	api.HandleFunc("/links/{id:[0-9]+}", linkHandler.UpdateLink).Methods("PUT")
+	api.HandleFunc("/links/{id:[0-9]+}", linkHandler.DeleteLink).Methods("DELETE")
 
 	port := "8080"
 	fmt.Printf("Server is running at http://localhost:%s\n", port)
