@@ -15,15 +15,13 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// LinkHandler handles HTTP requests for links
 type LinkHandler struct {
-	Repo     *repository.LinkRepository
+	Repo     repository.ILinkRepository
 	Logger   *slog.Logger
 	Validate *validator.Validate
 }
 
-// NewLinkHandler creates a new instance of LinkHandler
-func NewLinkHandler(repo *repository.LinkRepository, logger *slog.Logger, validate *validator.Validate) *LinkHandler {
+func NewLinkHandler(repo repository.ILinkRepository, logger *slog.Logger, validate *validator.Validate) *LinkHandler {
 	return &LinkHandler{
 		Repo:     repo,
 		Logger:   logger,
@@ -31,7 +29,6 @@ func NewLinkHandler(repo *repository.LinkRepository, logger *slog.Logger, valida
 	}
 }
 
-// Helper to write JSON response
 func (h *LinkHandler) writeJSON(w http.ResponseWriter, status int, data interface{}) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
@@ -40,7 +37,8 @@ func (h *LinkHandler) writeJSON(w http.ResponseWriter, status int, data interfac
 	}
 }
 
-// CreateLink creates a new link
+// ... (semua fungsi handler lainnya tetap sama persis)
+
 func (h *LinkHandler) CreateLink(w http.ResponseWriter, r *http.Request) {
 	var link model.Link
 	if err := json.NewDecoder(r.Body).Decode(&link); err != nil {
@@ -63,7 +61,6 @@ func (h *LinkHandler) CreateLink(w http.ResponseWriter, r *http.Request) {
 	h.writeJSON(w, http.StatusCreated, newLink)
 }
 
-// GetAllLinks retrieves all links
 func (h *LinkHandler) GetAllLinks(w http.ResponseWriter, r *http.Request) {
 	links, err := h.Repo.GetAll()
 	if err != nil {
@@ -74,7 +71,6 @@ func (h *LinkHandler) GetAllLinks(w http.ResponseWriter, r *http.Request) {
 	h.writeJSON(w, http.StatusOK, links)
 }
 
-// GetLinkByID retrieves a single link by its ID
 func (h *LinkHandler) GetLinkByID(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(mux.Vars(r)["id"])
 
@@ -92,7 +88,6 @@ func (h *LinkHandler) GetLinkByID(w http.ResponseWriter, r *http.Request) {
 	h.writeJSON(w, http.StatusOK, link)
 }
 
-// UpdateLink updates an existing link
 func (h *LinkHandler) UpdateLink(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(mux.Vars(r)["id"])
 
@@ -120,7 +115,6 @@ func (h *LinkHandler) UpdateLink(w http.ResponseWriter, r *http.Request) {
 	h.writeJSON(w, http.StatusOK, updatedLink)
 }
 
-// DeleteLink deletes a link by its ID
 func (h *LinkHandler) DeleteLink(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(mux.Vars(r)["id"])
 
