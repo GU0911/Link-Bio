@@ -4,29 +4,23 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	"os"
 
 	_ "github.com/lib/pq"
 )
 
-func ConnectDB() *sql.DB {
-	dbHost := os.Getenv("POSTGRES_HOST")
-	dbUser := os.Getenv("POSTGRES_USER")
-	dbPassword := os.Getenv("POSTGRES_PASSWORD")
-	dbName := os.Getenv("POSTGRES_DB")
-	dbPort := "5432"
-
+// ConnectDB creates and returns a connection to the database
+func ConnectDB(cfg DatabaseConfig) *sql.DB {
 	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
-		dbHost, dbPort, dbUser, dbPassword, dbName)
+		cfg.Host, cfg.Port, cfg.User, cfg.Password, cfg.DBName)
 
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
-		log.Fatalf("Failed to open DB connection: %v", err)
+		log.Fatalf("Failed to open database connection: %v", err)
 	}
 
 	err = db.Ping()
 	if err != nil {
-		log.Fatalf("Failed to connect to DB: %v", err)
+		log.Fatalf("Failed to connect to database: %v", err)
 	}
 
 	fmt.Println("Successfully connected to the database!")
