@@ -2,45 +2,53 @@ package main
 
 import (
 	"fmt"
-	"log"
+	"log/slog"
 	"net/http"
+	"os"
 
 	"linkbio-go/src/config"
 	"linkbio-go/src/handler"
 	"linkbio-go/src/repository"
+	"linkbio-go/src/util"
 
 	"github.com/gorilla/mux"
-	"github.com/joho/godotenv"
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Println("Warning: Failed to load .env file. Using system environment variables.")
-	}
+	// 1. Initialize structured logger
+	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
 
-	db := config.ConnectDB()
+	// 2. Load configuration
+	cfg := config.LoadConfig()
+
+	// 3. Initialize validator
+	validate := util.NewValidator()
+
+	// 4. Connect to the database
+	db := config.ConnectDB(cfg.DB)
 	defer db.Close()
 
+	// 5. Initialize layers
 	linkRepo := repository.NewLinkRepository(db)
-	linkHandler := handler.NewLinkHandler(linkRepo)
+	linkHandler := handler.NewLinkHandler(linkRepo, logger, validate)
 
+	// 6. Setup router and routes
 	r := mux.NewRouter()
-
-	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(`{"message": "Welcome to the Link Bio API with Go!"}`))
-	}).Methods("GET")
-
 	api := r.PathPrefix("/api").Subrouter()
+
 	api.HandleFunc("/links", linkHandler.GetAllLinks).Methods("GET")
 	api.HandleFunc("/links", linkHandler.CreateLink).Methods("POST")
 	api.HandleFunc("/links/{id:[0-9]+}", linkHandler.GetLinkByID).Methods("GET")
 	api.HandleFunc("/links/{id:[0-9]+}", linkHandler.UpdateLink).Methods("PUT")
 	api.HandleFunc("/links/{id:[0-9]+}", linkHandler.DeleteLink).Methods("DELETE")
 
-	port := "8080"
-	fmt.Printf("Server is running at http://localhost:%s\n", port)
-	log.Fatal(http.ListenAndServe(":"+port, r))
+	// 7. Start the server
+	serverAddr := ":" + cfg.ServerPort
+	logger.Info("server starting", "address", serverAddr)
+
+	err := http.ListenAndServe(serverAddr, r)
+	if err != nil {
+		logger.Error("server failed to start", "error", err)
+		os.Exit(1)
+	}
 }
